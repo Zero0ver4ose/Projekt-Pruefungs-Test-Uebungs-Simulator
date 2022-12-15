@@ -1,0 +1,41 @@
+<header class="header">
+  <h1 class="ui center aligned container">LTPS Lern-Test-Prüf-Simulator</h1>
+</header>
+<br><br><br><br><br>
+
+<hr>
+<br>
+<div *ngIf="switch == true">
+  <div class="ui fluid vertical icon buttons">
+    <div class="ui grid container attached button">
+      <button class="ui center aligned container Lernmodus button"
+      title="Setze dich mit dem Lernmodus auseinander bevor Sie den Testmodus starten"
+      routerLink="../lernmodus" routerLinkActive="active">Lernmodus</button>
+    </div>
+    <div class="ui grid container attached button">
+      <button class="ui center aligned container Testmodus button"
+      title="Hier kannst du dein gelerntes Wissen auf die Probe stellen"
+      routerLink="../testmodus" routerLinkActive="active">Testmodus</button>
+    </div>
+    <div class="ui grid container attached button">
+      <button class="ui center aligned container Prüfmodus button"
+      title="Wenn du bereit bist starte deine Prüfung"
+      routerLink="../pruefmodus-starten" routerLinkActive="active">Prüfmodus</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="switch == false">
+  <h1 class="">Wichtiger Hinweis</h1>
+  <h4 class="">Dies ist nur eine Simulation. Bitte verlasse dich sich nicht auf die Details der Prüfungssoftware
+    wir streben danach, sie halbwegs realistisch zu gestalten, aber Abweichungen sind wahrscheinlich. Es ist zu empfehlen,
+    die Fragen zu verstehen und mit einer 100 prozentigen Sicherheit zu beantworten. Wir raten Strikt davon ab, sich die
+    Antworten auswendig zu lernen!!!
+    <br><br>
+    Wir empfehlen zuerst mit dem >>Lernmodus<< zu beginnen bevor der >>Testmodus<< gestartet werden soll!
+    <br><br>
+    Sobald Du davon überzeugt bist und dein Wissen nun erweitert hast
+    <br><br>
+    Klick anschließend auf >>Prüfmodus<<, um die Prüfungssimulation zu beginnen</h4>
+  </div>
+  <button class="ui blue button" [disabled]="clicked" (click)="switch=true;clicked=true">Weiter</button>
+  

@@ -1,0 +1,113 @@
+<h1 class="ui center aligned container">LPI Prüfmodus</h1>
+
+<div>
+  <button routerLink='' class="ui blue button"> <i class="left arrow icon"></i> Home </button>
+  <button class="ui blue button" [disabled]="clicked" (click)="shufflequestion();schiese=!schiese;clicked=true"
+    title="">Prüfung Starten</button>
+  <hr>
+  <div *ngIf="questionIndex <= 118">
+    <div *ngIf="toomanywrongquestions">
+        <div *ngIf="schiese">
+          <a class="item">
+              <div>
+                <div class="ui red large text">
+                  <p class="ui padded grid container">Question {{questionIndex}} / 120 </p>
+                  <p> Fragentyp: {{currendQuestion.qtyp}}</p>
+                </div>
+                
+                  <div class="large text">
+                    <br>
+                    {{currendQuestion.question}}
+                    <br>
+                    <div *ngIf="currendQuestion.qtyp == 'mcf'">
+                      <div *ngFor="let ans of currendQuestion.choices" class="large text">
+                        <input name="{{ans}}" class="from-check-input" type="checkbox" (change)="oncheckmulti(ans)">
+                        {{ ans }}
+                      </div>
+                    </div>
+
+                    <div *ngIf="currendQuestion.qtyp =='scf'">
+                      <div *ngFor="let ans of currendQuestion.choices" class="large text">
+                        <input class="checkbox-round" type="checkbox" (change)="onchecksingle(ans)">
+                        {{ ans }}
+                      </div>
+                    </div>
+
+                    <div *ngIf="currendQuestion.qtyp =='fillin'">
+                      <div><br>
+                        <input type="text" size="30" placeholder="Gib deine Antwort ein" #box (keyup)="getValue(box.value)">
+                      </div>
+                    </div>
+
+                  </div>
+
+                <div class="fixedbutton">
+
+                  <br><br><br>
+                  <button class="ui right floated primary button" (click)="nextquestion(questionIndex)">Nächste Frage <i
+                      class="right arrow icon"></i> </button>
+                      <!-- <button class="ui right floated primary button" (click)="skipQuestion(questionIndex)">Übersrpingen</button> -->
+                  <button class="ui right floated primary button" (click)="prevquestion(questionIndex)">  <i
+                    class="left arrow icon"></i> Frage Zurück </button>
+
+                </div><br><br><hr>
+              </div>
+          </a>
+        </div>
+    </div>      
+  </div>      
+</div>
+    <div *ngIf="!schiese">
+      
+        <h1 class="">Bevor Du startest!</h1>
+        <h3 class="">Willkommen bei dem Prüfmodus. Soweit hast du es geschafft. </h3>
+        <h4>
+          Eine Anmerkung vorab. In Prüfmodus werden alle Fragentypen die du bislang gelernt hast
+          gemischt durchlaufen.
+          Es Sind insgesamt 120 Fragen die dir bevor stehen. Solltest du mehr als 20% der Fragen
+          Falsch haben Brechen wir den Prüfmodus ab und empfehlen dir nochmals den Testmodus und Lernmodus.
+
+          Für einen besseren Lerneffekt streben wir danach dir die Fragen nicht in reihenfolge
+          anzeigen zu lassen, sondern in gemischte Form.
+        </h4>
+        <h4>
+          Bei Multiple-Choice-Fragen ist eine Anmerkung hinterlassen.
+          Du kannst die auch an den Quadratischen Checkboxen erkennen.
+
+          Bei den Single-Choice-Fragen sind die Checkboxen Rund und
+
+          bei den Fill-In-Fragen... Selbstverständlich deinen Input.
+        </h4>
+        <h4>Nun gut! Wenn du bereit bist dann "Prüfung Starten" deine Prüfung. Viel Erfolg!
+        </h4>
+      
+    </div>
+
+<div *ngIf="!toomanywrongquestions">
+  <h1>Du hast nicht bestanden!</h1>
+  <h3>Leider hast du mehr als 20% von den 120 Fragen Falsch beantwortet!</h3>
+    <h3>Dein Ergebnis:</h3>
+  <h4> 
+      {{saveCorrectAnswer}} von 120 richtig beantwortet!
+    <br>
+      {{saveGuessAnswer}} von 120 Falsch geraten!
+    <br>
+      {{saveSkipQuestion}} von 120 nicht gewusst
+    <br>
+  Wir Empfehlen dir dringend nochmal den Lernmodus</h4>
+  <button routerLink='/lernmodus' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück"> <i class="left arrow icon"></i> Lernmodus </button>
+
+</div>
+<div *ngIf="questionIndex == 119">
+  <h1>Glückwunsch</h1>
+  <h3>Du hast bestanden!</h3>
+  <h3>Dein Ergebnis:</h3>
+  <h4> 
+      {{saveCorrectAnswer}} von 120 richtig beantwortet!
+    <br>
+      {{saveGuessAnswer}} von 120 Falsch geraten!
+    <br>
+      {{saveSkipQuestion}} von 120 nicht gewusst
+    <br>
+  Viel Erfolg für die richtige Prüfung!</h4>
+</div>

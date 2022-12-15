@@ -1,0 +1,53 @@
+<header>
+  <nav class="header">
+    <h1 class="ui center aligned container">LTPS Lernmodus Multiple-Choice (Einzel-Ansicht)</h1>
+    <button routerLink='/lernmodus' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück"> <i class="left arrow icon"></i> Lernmodus </button>
+    <button routerLink='/multi-choice-fragen' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück">  Listen Ansicht <i class="right arrow icon"></i></button>
+  </nav>
+  <br><br><br><br><br>
+</header>
+
+
+<hr>
+<div class="start">
+  <a *ngFor="let e of multichoicefragen;" class="item">
+
+
+      <div *ngIf="countsID == e.counts; ">
+        <div class="ui red large text">
+            <p class="ui padded grid container">Question {{e.counts}} / 28</p>
+        </div>
+        <div class="large text">
+             {{e.question}}
+        </div>
+      <br>
+        <div *ngFor="let ans of e.choices" class="large text">
+             {{ ans }}
+        </div>
+      <br>
+        <div *ngIf="router !='/testmodus'">
+            <button class="ui primary basic button" (click)="switchAnswers(e.counts)"> Answer</button>
+            <div *ngIf="switchAnswersFlag">
+              <div *ngIf="answerID == e.counts" class="large text">
+                {{e.answers}}
+              </div>
+            </div>
+        </div>
+      <br>
+      <hr>
+      <div class="fixedbutton"></div>
+          <button class="ui right floated primary button" (click)="nextquestion(e.counts)">nächste Frage <i class="right arrow icon"></i> </button>
+          <button class="ui right floated primary button" (click)="previousquestion(e.counts)"><i class="left arrow icon"></i> vorherige Frage</button>
+      </div>
+    </a>
+    <div *ngIf="countsID == 0">
+    <h2>Du hast es geschafft!</h2>
+    <h4> Schwierigkeiten gehabt? Dann versuch den Multiple-Choice-Fragebogen nochmal von vorn.
+      Je öfter du dir die Fragen anschaust desto mehr verstehst du den Hintergrund!
+      Wenn du schon Sicher bist, dann versuch es doch mit den anderen Fragetypen! Viel Erfolg!
+    </h4>
+
+
+  </div>
+</div>
+

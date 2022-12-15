@@ -1,0 +1,15 @@
+
+body {
+    margin: 1em;
+    
+}
+
+
+.header{
+  position: fixed;
+  top: 0%;
+  background-color: rgb(199, 213, 228);
+  padding: 10px;
+  width: 100%;
+
+}

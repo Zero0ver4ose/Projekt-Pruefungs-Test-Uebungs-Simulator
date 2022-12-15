@@ -1,0 +1,58 @@
+
+<header>
+  <nav class="header">
+    <h1 class="ui center aligned container">LTPS Multiple-Choice Test</h1>
+    <div>
+      <button routerLink='/testmodus' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück"> <i class="left arrow icon"></i> Testmodus  </button>
+    </div>
+  </nav>
+  <br><br><br><br><br>
+</header>
+<hr>
+<p class="fixedbutton">Versuche: {{tries}} von 7</p>
+  <a *ngFor="let e of multichoicefragen;" class="item">
+
+      <div *ngIf="countsID == e.counts; ">
+        <div class="ui red large text">
+            <p class="ui padded grid container">Question {{e.counts}} / 28 </p>
+        </div>
+        <div class="large text">
+             {{e.question}}
+        </div>
+      <br>
+        <div *ngFor="let ans of e.choices" class="large text">
+          <input name="{{ans}}" class="from-check-input" type="checkbox"  (change)="oncheck(ans)" >
+          {{ ans }}
+        </div>
+          <div></div>
+        <br>
+        <hr>
+        <div class="fixedbutton">
+          <button class="ui right floated primary button" (click)="nextquestion(e.counts, e.answers)">nächste Frage <i class="right arrow icon"></i> </button>
+          <button class="ui right floated primary button" (click)="frageuebersrpingen(e.counts)">Übersrpingen</button>
+        </div>
+      </div>
+    </a>
+
+    <div *ngIf="countsID == 0">
+      <h3>Glückwunsch!</h3>
+      <h4>Du hast den Testmodus bestanden. <br>
+        Du hast {{saveCorrectAnswer}} von 28 Fragen richtig beantwortet. <br>
+        Du hast {{savefalseAnswer}} Fragen Falsch beantwortet
+        Du hast {{saveSkipQuestion}} Fragen Übersprungen. <br>
+        Du hast noch {{tries}} Versuche. <br>
+      </h4>
+    </div>
+    <div *ngIf="(tries == 0)">
+      <h2>Leider Hast du keine Versuche mehr!</h2>
+        <h4>Du hast mehr als 7 Fehler.
+           <br>
+          Wir empfehlen dir nochmal den Lernmodus anzuschauen und wenn du
+          dir Sicher bist dann kannst du gerne wieder den testmodus starten. <br>
+          <br>
+
+        <button routerLink='/lernmodus' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück"> <i class="left arrow icon"></i> Lernmodus </button>
+        </h4>
+    </div>
+
+

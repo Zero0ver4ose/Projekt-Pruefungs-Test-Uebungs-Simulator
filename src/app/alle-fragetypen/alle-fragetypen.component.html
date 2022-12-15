@@ -1,0 +1,42 @@
+<header>
+    <div class="header">
+      <h1 class="ui center aligned container">LTPS Lernmodus Single-Choice</h1>
+  
+  
+      <button routerLink='/lernmodus' class="ui blue button" title="Leitet dich auf die Lernmodus Seite zurück"> <i class="left arrow icon"></i> Lernmodus </button>
+  
+    </div>
+    <br><br><br><br><br>
+  </header>
+  
+  <hr>
+  <div class="">
+      <a *ngFor="let e of mixquestion" class="item">
+          <div class="ui red large text">
+              <p class="ui padded grid container">Question {{e.counts}}</p>
+              <p>{{e.qtyp}}</p>
+          </div>
+          <div class="large text">
+              {{e.question}}
+          </div>
+          <br>
+          <div *ngFor="let ans of e.choices" class="large text">
+              {{ ans }}
+          </div>
+          <br>
+          <!-- <div *ngIf="router !='/testmodus'"> -->
+              <button class="ui primary basic button" type="button" (click)="switch(e.counts)"> Answer</button>
+  
+              <div *ngIf="switchAnswersFlag">
+                  <div *ngIf="answerID == e.counts" class="large text">
+                      {{e.answers1}}{{e.answers}}{{e.answer}}
+                  </div>
+              </div>
+          <!-- </div> -->
+  
+          <hr>
+  
+      </a>
+  
+  </div>
+  

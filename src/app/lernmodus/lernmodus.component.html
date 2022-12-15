@@ -1,0 +1,33 @@
+
+<header>
+  <nav class="header">
+    <h1 class="ui center aligned container">LTPS Lernmodus</h1>
+
+
+    <div>
+    <button routerLink='' (click)="switch=true" class="ui blue button"> <i class="left arrow icon"></i> Home </button>
+    <button routerLink='../multi-choice-fragen' class="ui blue button"> <i class="fas fa-angle-double-down"></i> Multiple-Choice-Fragen </button>
+    <button routerLink='../single-choice-listen-ansicht' class="ui blue button"> <i class="fas fa-angle-double-down"></i> Single-Choice-Fragen </button>
+    <button routerLink='../fill-inn-listen-Ansicht' class="ui blue button"> <i class="fas fa-angle-double-down"></i> Fill-In-Fragen </button>
+    <button routerLink="../alle-frage-typen" class="ui blue button"> <i class="fas fa-angle-double-down"></i> Alle Fragetypen</button>  
+  </div>
+  </nav>
+    <br><br><br><br><br>
+</header>
+    <hr>
+
+
+<div *ngIf="router =='/lernmodus'">
+  <h1 class="">Wichtiger Hinweis</h1>
+  <h4 class="">Im folgenden hast du lern Möglichkeiten. Wähle aus Multiple-Choice-Fragen, Single-Choice-Fragen und Fill-In-Fragen.
+    Wir empfehlen alle Fragetypen zu lernen bevor es in die Prüfung gehen soll. Desweiteren ist es vom Vorteil erst einen Test
+    (Testmodus) zu absolvieren. Wenn du dir nun ganz Sicher bist und alle Fragen sowie Antworten verstanden hast, dann versuch es doch mal damit
+    dir die Fragen aus den Fragentypen zu mischen um dir dein können unter beweist zu stellen. Wir Wünschen dir viel Erfolg!
+  </h4>
+  <h4>Im Lernmodus hast du nun die Wahl. Wir haben dir das überschaulich gemacht. Du hast die Möglichkeit dir die Fragen in einer Liste
+    ausgeben zu lassen oder für den besseren Lerneffekt, dir die fragen einzelnd anzeigen zu lassen. Viel Spaß!
+  </h4>
+  <h3>MERKE!!!</h3>
+  <h4>Sei dir Sicher das du dir die Fragen und die darauf folgenden Antworten verstehst! Auswendiglernen bringt keinen Erfolg</h4>
+</div>
+
