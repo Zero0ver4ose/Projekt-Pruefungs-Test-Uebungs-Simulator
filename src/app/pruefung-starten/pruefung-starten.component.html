@@ -1,12 +1,14 @@
-<h1 class="ui center aligned container">LPI Prüfmodus</h1>
-
+<br><br>
 <div>
+  <div class="header">
+  <h1 class="ui center aligned container">LPI Prüfmodus </h1>
   <button routerLink='' class="ui blue button"> <i class="left arrow icon"></i> Home </button>
   <button class="ui blue button" [disabled]="clicked" (click)="shufflequestion();schiese=!schiese;clicked=true"
-    title="">Prüfung Starten</button>
+  title="">Prüfung Starten</button>
+</div>
   <hr>
   <div *ngIf="questionIndex <= 118">
-    <div *ngIf="toomanywrongquestions">
+    <div *ngIf="toomanywrongquestions"><br><br><br>
         <div *ngIf="schiese">
           <a class="item">
               <div>
@@ -21,14 +23,14 @@
                     <br>
                     <div *ngIf="currendQuestion.qtyp == 'mcf'">
                       <div *ngFor="let ans of currendQuestion.choices" class="large text">
-                        <input name="{{ans}}" class="from-check-input" type="checkbox" (change)="oncheckmulti(ans)">
+                        <input class="from-check-input" type="checkbox" (change)="oncheckmulti(ans)">
                         {{ ans }}
                       </div>
                     </div>
 
                     <div *ngIf="currendQuestion.qtyp =='scf'">
                       <div *ngFor="let ans of currendQuestion.choices" class="large text">
-                        <input class="checkbox-round" type="checkbox" (change)="onchecksingle(ans)">
+                      <input class="checkbox-round" type="checkbox" (checked)="singleanswers" (change)="onchecksingle(ans)">
                         {{ ans }}
                       </div>
                     </div>
@@ -84,6 +86,7 @@
     </div>
 
 <div *ngIf="!toomanywrongquestions">
+  <br><br>
   <h1>Du hast nicht bestanden!</h1>
   <h3>Leider hast du mehr als 20% von den 120 Fragen Falsch beantwortet!</h3>
     <h3>Dein Ergebnis:</h3>
@@ -99,6 +102,7 @@
 
 </div>
 <div *ngIf="questionIndex == 119">
+  <br><br>
   <h1>Glückwunsch</h1>
   <h3>Du hast bestanden!</h3>
   <h3>Dein Ergebnis:</h3>

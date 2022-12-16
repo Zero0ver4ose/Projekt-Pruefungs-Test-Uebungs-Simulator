@@ -17,7 +17,8 @@ export class MultipleChoiceFragenService {
         as seen in nmcli connection show, may exist in
         NetworkManager? (Choose three.) `,
         choices:["A. tcp","B. ethernet","C. wifi","D. ipv6","E. bridge"],
-        answers:["B","C","E"]
+        answers:["B","C","E"],
+        
       },
       {
         qtyp:"mcf",

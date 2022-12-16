@@ -1,5 +1,3 @@
-
-
 export interface MultiChoiceFragen {
     qtyp:string,
     counts: number

@@ -5,7 +5,6 @@ import { SingleChoiceFragen } from '../shared/single-choice-fragen';
 import { SingleChoiceFragenService } from '../shared/single-choice-fragen.service';
 import { FillInFragen } from '../shared/fill-in-fragen';
 import { FillInnFragenService } from '../shared/fill-inn-fragen.service';
-import { map } from 'rxjs';
 @Component({
   selector: 'app-pruefung-starten',
   templateUrl: './pruefung-starten.component.html',
@@ -61,9 +60,9 @@ export class PruefungStartenComponent implements OnInit {
     this.fillin = this.fillinf.getAll();
 
     this.mixquestion = this.mixedquestion.concat(this.multi, this.single, this.fillin)
-    this.newIDArray = this.mixquestion.map((item, index) => ({ ...item, id: index }))
+    this.newIDArray = this.mixquestion.map((item, index) => ({ ...item, id: 1 }))
 
-    this.questionIndex = 0
+    this.questionIndex = 1
     this.currendQuestion = this.newIDArray[this.questionIndex]
    
 
@@ -73,8 +72,9 @@ export class PruefungStartenComponent implements OnInit {
   {
    
     this.shuffledArray = this.newIDArray.sort((a, b) => 0.5 - Math.random())
-    this.questionIndex = 0
+    this.questionIndex = 1
     this.currendQuestion = this.newIDArray[this.questionIndex]
+    // console.log(this.currendQuestion)
   }
 
   /**Geht zur nächsten Frage. */
@@ -82,6 +82,9 @@ export class PruefungStartenComponent implements OnInit {
   /**Prüft ob die 20% von 120 Fragen überschritten ist */
   nextquestion(id: number) 
   {
+    console.log(this.currendQuestion)
+
+    // console.log(this.userInput,this.multianswers,this.singleanswers)
     if (id < this.shuffledArray.length - 1) 
     {
       this.questionIndex++
@@ -90,37 +93,48 @@ export class PruefungStartenComponent implements OnInit {
         if (this.currendQuestion.answers1 == this.singleanswers.slice(0,1))
         {
           this.saveCorrectAnswer++
+          this.saveAllQuestions.push(this.saveCorrectAnswer)
         } else if (this.singleanswers == "")
         {
           this.saveSkipQuestion++
+          this.saveAllQuestions.push(this.saveSkipQuestion)
+
         }
          else if (this.currendQuestion.answers1 != this.singleanswers.slice(0,1))
          {
           this.saveGuessAnswer++
+          this.saveAllQuestions.push(this.saveGuessAnswer)
+
          }
       }
       else if (this.currendQuestion.qtyp == "fillin"){
         if(this.currendQuestion.answer == this.userInput)
         {
           this.saveCorrectAnswer++
+          this.saveAllQuestions.push(this.saveCorrectAnswer)
+
         }
         else if(this.userInput == "")
         {
           this.saveSkipQuestion++
+          this.saveAllQuestions.push(this.saveSkipQuestion)
+
         } else if(this.currendQuestion.answer != this.userInput)
         {
           this.saveGuessAnswer++
+          this.saveAllQuestions.push(this.saveGuessAnswer)
+
         }
         
       }
       else if (this.currendQuestion.qtyp == "mcf")
       {
-        console.log(this.multianswers)
-        console.log(this.currendQuestion.answers) 
 
         if (this.multianswers.length == 0) 
         {
           this.saveSkipQuestion++
+          this.saveAllQuestions.push(this.saveSkipQuestion)
+
         } 
         else 
         {
@@ -136,34 +150,50 @@ export class PruefungStartenComponent implements OnInit {
               if(this.currendQuestion.answers.length != this.multianswers.length)
               {
                 this.saveGuessAnswer++
+                this.saveAllQuestions.push(this.saveGuessAnswer)
+
               }
               else 
               {
                     if (numberofcorrectanswers == this.currendQuestion.answers.length)
                     {
                       this.saveCorrectAnswer++
+                      this.saveAllQuestions.push(this.saveCorrectAnswer)
+
 
                     } else {
                       this.saveGuessAnswer++
+                      this.saveAllQuestions.push(this.saveGuessAnswer)
+
                     }
                 }
             
         }
       }
-      if(((this.saveGuessAnswer + this.saveSkipQuestion)/120) > 0.2)
+      if((this.saveGuessAnswer/120) > 0.2)
       {
-        console.log("Pruefung abbrechen")
         this.toomanywrongquestions = false
       }
       console.log(this.saveCorrectAnswer,"A",this.saveGuessAnswer,"B",this.saveSkipQuestion)
-      this.userInput = ""
-      this.multianswers = []
-      this.singleanswers = ""
+      // this.userInput = ""
+      // this.multianswers = []
+      // this.singleanswers = ""
       this.currendQuestion = this.newIDArray[this.questionIndex]
+      console.log(this.saveAllQuestions)
+     
 
     }
-  if(this.shuffledArray.length > 118){
-    this.questionIndex = 119
+  if(this.questionIndex >= 118){
+    if((this.saveGuessAnswer/120) < 0.2)
+    {
+      this.questionIndex = 119
+
+    } else
+    {
+    this.toomanywrongquestions = false
+    }
+
+    
 
   }
   }
@@ -174,7 +204,13 @@ export class PruefungStartenComponent implements OnInit {
     if (id > 0) {
       this.questionIndex--
       this.currendQuestion = this.newIDArray[this.questionIndex]
+      this.userInput 
+      this.multianswers 
+      this.singleanswers 
+      this.saveAllQuestions.pop()
+      console.log(this.singleanswers,this.multianswers,this.userInput  )
     }
+    
   }
 
   /**Array vorbereitet und gecheckt ob Antwort bereits vorhanden wenn ja mach den .splice(entfernen) wenn nicht .push(in array hinzufügen) */
@@ -195,6 +231,8 @@ export class PruefungStartenComponent implements OnInit {
   onchecksingle(choosechoice:string)
   {
     this.singleanswers = choosechoice
+    console.log(this.singleanswers)
+    
   };
 
   /**Vergleicht den UserINPUT mit dem Antwort string */
